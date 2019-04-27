@@ -1,5 +1,6 @@
 CYAN='\033[0;36m'
 NC='\033[0m' # No Color
+count=0
 
 clear
 while true; do
@@ -16,10 +17,15 @@ while true; do
 		printf "Quitting ...\n"
 		break
 	else
-		cols=$(( $(tput cols) + 2 ))
+		# Prints 2 less '─' characters but works fine for '_'
+		# Compensating by adding 2 to cols
+		cols=$(( $(tput cols) + 2 )) 
 		s=$(printf "%-${cols}s" "─")
 		
 		clear
+		Array[$count]=$choice
+		((count++))
+		echo ${Array[@]}
 		printf "website: %s \n" "$choice"
 		
 		echo -e "${CYAN}${s// /─}${NC}"
